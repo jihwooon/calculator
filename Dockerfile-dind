@@ -1,0 +1,5 @@
+FROM docker:latest
+
+COPY registry.crt /usr/share/ca-certificates/registry/registry.crt
+RUN echo "registry/registry.crt" >> /etc/ca-certificates.conf
+RUN update-ca-certificates
