@@ -31,7 +31,9 @@ pipeline {
         stage('Compile') {
             steps {
                 script {
-                  sh "./gradlew compileJava"
+                    container('builder') {
+                        sh "./gradlew compileJava"
+                    }
                 }
             }
         }
