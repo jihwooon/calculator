@@ -9,8 +9,11 @@ pipeline {
             kind: Pod
             spec:
               containers:
-              - name: jnlp
+              - name: builder
                 image: jenkins/inbound-agent
+                command:
+                - cat
+                tty: true
             '''
         }
     }
