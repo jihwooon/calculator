@@ -25,9 +25,9 @@ spec:
           - containerPort: 5000
           env:
             - name: REGISTRY_HTTP_TLS_CERTIFCATE
-              value: "/certs/tls.crt"
+              value: "/certs/registry.crt"
             - name: REGISTRY_HTTP_TLS_KEY
-              value: "/certs/tls.key"
+              value: "/certs/registry.key"
           volumeMounts:
           - name: registry-certs
             mountPath: "/certs"
