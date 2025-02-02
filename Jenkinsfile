@@ -37,5 +37,14 @@ pipeline {
                 }
             }
         }
+        stage('Unit Test') {
+            steps {
+                script {
+                    container('builder') {
+                        sh "./gradlew test"
+                    }
+                }
+            }
+        }
     }
 }
