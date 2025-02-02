@@ -42,6 +42,11 @@ pipeline {
                 script {
                     container('builder') {
                         sh "./gradlew test"
+                        publishHTML(target: [
+                          reportDir: 'build/reports/tests/test',
+                          reportFiles: 'index.html',
+                          reportName: 'Junit Report'
+                        ])
                     }
                 }
             }
