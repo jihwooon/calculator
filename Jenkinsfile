@@ -23,9 +23,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-              git url: 'git@github.com:jihwooon/calculator.git'
-                  branch: 'main',
-                  credentialsId: 'github-credentials'
+                checkout scm
             }
         }
         stage('Compile') {
