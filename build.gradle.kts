@@ -3,6 +3,7 @@ plugins {
 	id("org.springframework.boot") version "3.4.2"
 	id("io.spring.dependency-management") version "1.1.7"
 	jacoco
+	checkstyle
 }
 
 group = "com.example"
@@ -36,4 +37,12 @@ tasks.jacocoTestCoverageVerification {
 			}
 		}
 	}
+}
+
+checkstyle {
+	configFile = file("config/checkstyle/naver-checkstyle-rules.xml")
+	configProperties = mapOf(
+		"suppressionFile" to "config/checkstyle/naver-checkstyle-suppressions.xml"
+	)
+
 }
