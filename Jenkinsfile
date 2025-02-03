@@ -1,6 +1,8 @@
 pipeline {
     environment {
-        dockerImageName = "jihwooon/jenkins-in-actions"
+      dockerImageName = "calculator"
+      REGISTRY_URL = 'registry-service.registry.svc.cluster.local:30100'
+      REGISTRY_TAG = '1.0'
     }
     agent {
         kubernetes {
@@ -21,8 +23,8 @@ pipeline {
                 env:
                 - name: DOCKER_TLS_CERTDIR
                   value: ""
-                  securityContext:
-                    privileged: true
+                securityContext:
+                  privileged: true
               - name: builder
                 image: sheayun/jenkins-agent-jdk-17
                 command:
@@ -92,5 +94,29 @@ pipeline {
                 }
             }
         }
+        stage('Package') {
+            steps {
+                script {
+                    container('builder') {
+                        sh './gradlew build'
+                    }
+                }
+            }
+        }
+        stage('Docker build') {
+            steps {
+                script {
+                    dockerImage = docker.build dockerImageName
+                }
+            }
+        }
+//         stage('Docker push') {
+//             steps {
+//                 script {
+//                   docker.withRegistry("https://${REGISTRY_URL}")
+//                      dockerImage.push("${REGISTRY_TAG}")
+//                 }
+//             }
+//         }
     }
 }
