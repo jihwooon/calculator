@@ -9,6 +9,20 @@ pipeline {
             kind: Pod
             spec:
               containers:
+              - name: jnlp
+                image: sheayun/jnlp-agent-sample
+                env:
+                - name: DOCKER_HOST
+                  value: "tcp://localhost:2375"
+              - name: dind
+                image: sheayun/dind
+                command:
+                - /usr/local/bin/dockerd-entrypoint.sh
+                env:
+                - name: DOCKER_TLS_CERTDIR
+                  value: ""
+                  securityContext:
+                    privileged: true
               - name: builder
                 image: jenkins/inbound-agent
                 command:
