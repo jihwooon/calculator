@@ -15,7 +15,7 @@ pipeline {
                 - name: DOCKER_HOST
                   value: "tcp://localhost:2375"
               - name: dind
-                image: sheayun/dind
+                image: docker:latest
                 command:
                 - /usr/local/bin/dockerd-entrypoint.sh
                 env:
@@ -24,7 +24,7 @@ pipeline {
                   securityContext:
                     privileged: true
               - name: builder
-                image: jenkins/inbound-agent
+                image: sheayun/jenkins-agent-jdk-17
                 command:
                 - cat
                 tty: true
